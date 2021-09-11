@@ -3,37 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
     public static GameManager Instance
-
     {
-
         get
-
         {
-
             if (_instance == null)
-
             {
-
                 _instance = FindObjectOfType<GameManager>();
-
             }
-
-
-
             return _instance;
-
         }
-
     }
 
     // Fungsi [Range (min, max)] ialah menjaga value agar tetap berada di antara min dan max-nya
 
     [Range(0f, 1f)]
-
     public float AutoCollectPercentage = 0.1f;
 
     public ResourceConfig[] ResourcesConfigs;
@@ -54,7 +43,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField]
-    private double TotalGold;
+    public double TotalGold { get; private set; }
 
 
     // Start is called before the first frame update
@@ -76,10 +65,42 @@ public class GameManager : MonoBehaviour
 
         }
         CheckResourceCost();
-
+        CheckAchiveGold();
         CoinIcon.transform.localScale = Vector3.LerpUnclamped(CoinIcon.transform.localScale, Vector3.one * 2f, 0.15f);
         CoinIcon.transform.Rotate(0f, 0f, Time.deltaTime * -100f);
 
+    }
+
+    private void CheckAchiveGold()
+    {
+        if (TotalGold >= 1000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "1000");
+        }
+        if (TotalGold >= 10000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "10000");
+        }
+        if (TotalGold >= 100000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "100000");
+        }
+        if (TotalGold >= 1000000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "1000000");
+        }
+        if (TotalGold >= 100000000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "100000000");
+        }
+        if (TotalGold >= 1000000000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "1000000000");
+        }
+        if (TotalGold >= 1000000000000)
+        {
+            AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "1000000000000");
+        }
     }
     private void CheckResourceCost()
     {
@@ -134,7 +155,7 @@ public class GameManager : MonoBehaviour
         TapText tapText = GetOrCreateTapText();
         tapText.transform.SetParent(parent, false);
         tapText.transform.position = tapPosition;
-        tapText.Text.text = $"+{ output.ToString("0") }";
+        tapText.Text.text = $"+{ AbbrevationUtility.AbbreviateNumber(output) }";
         tapText.gameObject.SetActive(true);
         CoinIcon.transform.localScale = Vector3.one * 1.75f;
         AddGold(output);
@@ -166,14 +187,9 @@ public class GameManager : MonoBehaviour
 
         // Fungsi ToString("F1") ialah membulatkan angka menjadi desimal yang memiliki 1 angka di belakang koma
 
-        AutoCollectInfo.text = $"Auto Collect: { output.ToString("F1") } / second";
+        AutoCollectInfo.text = $"Auto Collect: { AbbrevationUtility.AbbreviateNumber(output) } / second";
         AddGold(output);
 
-    }
-
-    public double GetTotalGold()
-    {
-        return TotalGold;
     }
 
     public void AddGold(double value)
@@ -182,10 +198,11 @@ public class GameManager : MonoBehaviour
 
         TotalGold += value;
 
-        GoldInfo.text = $"Gold: { TotalGold.ToString("0") }";
+        GoldInfo.text = $"Gold: { AbbrevationUtility.AbbreviateNumber(TotalGold) }";
 
     }
 }
+
 
 // Fungsi System.Serializable adalah agar object bisa di-serialize dan
 // value dapat di-set dari inspector

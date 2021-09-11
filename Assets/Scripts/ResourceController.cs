@@ -35,23 +35,23 @@ public class ResourceController : MonoBehaviour
     public void UpgradeLevel()
     {
         double upgradeCost = GetUpgradeCost();
-        if (GameManager.Instance.GetTotalGold() < upgradeCost)
+        if (GameManager.Instance.TotalGold < upgradeCost)
         {
             return;
         }
         GameManager.Instance.AddGold(-upgradeCost);
         _level++;
-        ResourceUpgradeCost.text = $"Upgrade Cost\n{ GetUpgradeCost() }";
-        ResourceDescription.text = $"{ _config.Name } Lv. { _level }\n+{ GetOutput().ToString("0") }";
+        ResourceUpgradeCost.text = $"Upgrade Cost\n{ AbbrevationUtility.AbbreviateNumber(GetUpgradeCost()) }";
+        ResourceDescription.text = $"{ _config.Name } Lv. { _level }\n+{ AbbrevationUtility.AbbreviateNumber(GetOutput()) }";
 
     }
     public void SetConfig(ResourceConfig config)
     {
         _config = config;
         // ToString("0") berfungsi untuk membuang angka di belakang koma
-        ResourceDescription.text = $"{ _config.Name } Lv. { _level }\n+{ GetOutput().ToString("0") }";
-        ResourceUnlockCost.text = $"Unlock Cost\n{ _config.UnlockCost }";
-        ResourceUpgradeCost.text = $"Upgrade Cost\n{ GetUpgradeCost() }";
+        ResourceDescription.text = $"{ _config.Name } Lv. { _level }\n+{ AbbrevationUtility.AbbreviateNumber(GetOutput()) }";
+        ResourceUnlockCost.text = $"Unlock Cost\n{ AbbrevationUtility.AbbreviateNumber(_config.UnlockCost) }";
+        ResourceUpgradeCost.text = $"Upgrade Cost\n{ AbbrevationUtility.AbbreviateNumber(GetUpgradeCost()) }";
 
         SetUnlocked(_config.UnlockCost == 0);
     }
@@ -81,17 +81,11 @@ public class ResourceController : MonoBehaviour
     {
 
         double unlockCost = GetUnlockCost();
-
-        if (GameManager.Instance.GetTotalGold() < unlockCost)
-
+        if (GameManager.Instance.TotalGold < unlockCost)
         {
             return;
         }
-
-
-
         SetUnlocked(true);
-
         GameManager.Instance.ShowNextResource();
         AchievementController.Instance.UnlockAchievement(AchievementType.UnlockResource, _config.Name);
 

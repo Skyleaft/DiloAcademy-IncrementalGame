@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class TapText : MonoBehaviour
 {
-    public float SpawnTime = 0.5f;
+    public float SpawnTime = 0.7f;
     public Text Text;
+    public GameObject TextObj;
 
     private float _spawnTime;
 
@@ -27,7 +28,8 @@ public class TapText : MonoBehaviour
         }
         else
         {
-            Text.CrossFadeAlpha(0f, 0.5f, false);
+            Text.CrossFadeAlpha(0f, 0.7f, false);
+            TextObj.transform.position = Vector2.LerpUnclamped(TextObj.transform.position, TextObj.transform.position + Vector3.up, 0.5f);
             if (Text.color.a == 0f)
             {
                 gameObject.SetActive(false);

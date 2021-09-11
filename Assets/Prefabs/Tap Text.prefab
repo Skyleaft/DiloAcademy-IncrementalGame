@@ -94,3 +94,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnTime: 0.5
   Text: {fileID: 2206129348314775674}
+  TextObj: {fileID: 2206129348314775672}
