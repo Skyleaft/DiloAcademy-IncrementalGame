@@ -71,8 +71,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //method untuk mengecek GOLD
     private void CheckAchiveGold()
     {
+        //jika gold melebihi kriteria tertentu maka panggil method achivementcontroller kemudian kirim type gold dan string value
         if (TotalGold >= 1000)
         {
             AchievementController.Instance.UnlockAchievement(AchievementType.Gold, "1000");
@@ -155,6 +157,7 @@ public class GameManager : MonoBehaviour
         TapText tapText = GetOrCreateTapText();
         tapText.transform.SetParent(parent, false);
         tapText.transform.position = tapPosition;
+        //tambahan format currency lebih baik
         tapText.Text.text = $"+{ AbbrevationUtility.AbbreviateNumber(output) }";
         tapText.gameObject.SetActive(true);
         CoinIcon.transform.localScale = Vector3.one * 1.75f;
@@ -185,8 +188,7 @@ public class GameManager : MonoBehaviour
 
         output *= AutoCollectPercentage;
 
-        // Fungsi ToString("F1") ialah membulatkan angka menjadi desimal yang memiliki 1 angka di belakang koma
-
+        //tambahan format currency lebih baik
         AutoCollectInfo.text = $"Auto Collect: { AbbrevationUtility.AbbreviateNumber(output) } / second";
         AddGold(output);
 
@@ -195,9 +197,8 @@ public class GameManager : MonoBehaviour
     public void AddGold(double value)
 
     {
-
         TotalGold += value;
-
+        //tambahan format currency lebih baik
         GoldInfo.text = $"Gold: { AbbrevationUtility.AbbreviateNumber(TotalGold) }";
 
     }

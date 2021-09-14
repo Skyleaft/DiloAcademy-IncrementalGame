@@ -80,9 +80,7 @@ public class AchievementController : MonoBehaviour
 
 
 // System.Serializable digunakan agar object dari script bisa di-serialize
-
 // dan bisa di-inputkan dari Inspector, jika tidak terdapat ini, maka variable tidak akan muncul di inspector
-
 [System.Serializable]
 public class AchievementData
 {
@@ -96,6 +94,7 @@ public class AchievementData
 
 public enum AchievementType
 {
+    //tambahan type gold untuk achivement gold
     UnlockResource,
     Gold
 }

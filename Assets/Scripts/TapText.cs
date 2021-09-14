@@ -29,6 +29,7 @@ public class TapText : MonoBehaviour
         else
         {
             Text.CrossFadeAlpha(0f, 0.7f, false);
+            //tambahan agar objek yang dispawn bergerak keatas
             TextObj.transform.position = Vector2.LerpUnclamped(TextObj.transform.position, TextObj.transform.position + Vector3.up, 0.5f);
             if (Text.color.a == 0f)
             {

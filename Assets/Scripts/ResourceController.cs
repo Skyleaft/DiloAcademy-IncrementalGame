@@ -16,7 +16,6 @@ public class ResourceController : MonoBehaviour
     public bool IsUnlocked { get; private set; }
 
     private void Start()
-
     {
         ResourceButton.onClick.AddListener(() =>
         {
@@ -48,7 +47,7 @@ public class ResourceController : MonoBehaviour
     public void SetConfig(ResourceConfig config)
     {
         _config = config;
-        // ToString("0") berfungsi untuk membuang angka di belakang koma
+        // tambahan abbrevationutility untuk format gold yang lebih baik
         ResourceDescription.text = $"{ _config.Name } Lv. { _level }\n+{ AbbrevationUtility.AbbreviateNumber(GetOutput()) }";
         ResourceUnlockCost.text = $"Unlock Cost\n{ AbbrevationUtility.AbbreviateNumber(_config.UnlockCost) }";
         ResourceUpgradeCost.text = $"Upgrade Cost\n{ AbbrevationUtility.AbbreviateNumber(GetUpgradeCost()) }";
@@ -57,7 +56,6 @@ public class ResourceController : MonoBehaviour
     }
 
     public double GetOutput()
-
     {
         return _config.Output * _level;
     }
@@ -72,14 +70,12 @@ public class ResourceController : MonoBehaviour
 
 
     public double GetUnlockCost()
-
     {
         return _config.UnlockCost;
     }
 
     public void UnlockResource()
     {
-
         double unlockCost = GetUnlockCost();
         if (GameManager.Instance.TotalGold < unlockCost)
         {
